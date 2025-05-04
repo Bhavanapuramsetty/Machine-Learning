@@ -1,50 +1,110 @@
+Traffic Prediction and Adaptive Navigation System
+
 Overview
 
-This project focuses on enhancing academic advising in higher education by leveraging data mining techniques, specifically K-Means clustering and FP-Growth algorithms. The goal is to provide personalized course recommendations by analyzing student demographic and academic performance data. The approach segments students into distinct clusters based on their attributes and identifies association rules to guide course selection, ultimately improving academic outcomes.
+This project develops a machine learning-based system to predict traffic volumes in urban areas, specifically New York City, using historical and real-time data. The system employs XGBoost and Random Forest models to forecast traffic and integrates predictions into a Flask API for real-time user interaction. The goal is to optimize traffic flow, suggest alternative routes, and support urban planning by reducing congestion-related issues like delays and pollution.
 
 Repository Contents
 
-DM-Project-Group-9-Report.docx: The final project report detailing the methodology, results, and findings.
 
-Dataset: Sourced from Kaggle, containing anonymized high school student data (academic scores, demographics, etc.).
 
-Code: Python scripts used for data preprocessing, K-Means clustering, FP-Growth algorithm implementation, and result visualization (not included in the document but referenced as using pandas, scikit-learn, and mlxtend libraries).
+
+
+Final_Report__Traffic_Prediction_and_Adaptive_Navigation_System.docx: The final project report detailing the system design, methodology, results, and future work.
+
+
+
+Dataset: Traffic volume data (2022–2024) from the New York City Department of Transportation (NYC DOT), including features like year, month, day, hour, street, direction, traffic volume, and weather conditions.
+
+
+
+Code: Python scripts for data preprocessing, model training (XGBoost, Random Forest, Linear Regression), evaluation, and Flask API implementation (not included in the document but referenced as using scikit-learn, XGBoost, Flask, and pandas libraries).
+
+
+
+Visualizations: Plots (e.g., feature importance, traffic volume distribution, correlation matrix) referenced in the report.
 
 Prerequisites
 
 To replicate or extend the analysis, ensure the following are installed:
 
+
+
+
+
 Python 3.x
 
-Libraries: pandas, scikit-learn, mlxtend, matplotlib
 
-Dataset: Download from the provided Kaggle link
+
+Libraries: pandas, scikit-learn, xgboost, flask, matplotlib
+
+
+
+Dataset: Obtain traffic volume data from NYC DOT or equivalent source
 
 Methodology
 
+
+
+
+
 Data Preprocessing:
 
-Handled missing values using median (numerical) and mode (categorical).
 
-Normalized numerical data with StandardScaler.
 
-Applied one-hot encoding for categorical variables.
 
-K-Means Clustering:
 
-Determined optimal clusters (k=4) using the elbow method.
+Cleaned dataset by handling missing values, removing invalid records, and addressing outliers.
 
-Segmented students based on academic and demographic features.
 
-FP-Growth Algorithm:
 
-Identified association rules within clusters with minimum support (0.05) and confidence (0.2).
+Engineered features by encoding categorical variables (e.g., street, direction) and scaling numerical features.
+
+
+
+Split data into 80% training and 20% testing sets.
+
+
+
+Model Training:
+
+
+
+
+
+Trained three models: Linear Regression, Random Forest, and XGBoost.
+
+
+
+Optimized XGBoost through hyperparameter tuning for best performance.
+
+
 
 Evaluation:
 
-Used silhouette score for clustering quality.
 
-Assessed association rules with support, confidence, and lift metrics.
+
+
+
+Used RMSE (Root Mean Squared Error) and R² (R-squared) to assess model performance.
+
+
+
+Visualized results with feature importance plots, traffic volume distributions, and correlation heatmaps.
+
+
+
+API Integration:
+
+
+
+
+
+Built a Flask API to serve real-time traffic predictions based on user inputs (e.g., time, location, weather).
+
+
+
+Developed a simple HTML/JavaScript frontend for user interaction.
 
 Key Findings
 
@@ -52,33 +112,33 @@ Key Findings
 
 
 
-Clustering: Four student clusters identified:
+Model Performance:
 
 
 
 
 
-Cluster 0: High-achieving students, recommended for advanced courses.
+XGBoost: Best performer with RMSE = 95.34, R² = 0.907 after tuning.
 
 
 
-Cluster 1: Students needing math support, suggested for remedial workshops.
+Random Forest: RMSE = 100.53, R² = 0.825.
 
 
 
-Cluster 2: Balanced performers, encouraged for advanced courses in strong areas.
+Linear Regression: Underperformed with RMSE = 172.95, R² = 0.0357 due to nonlinear data.
 
 
 
-Cluster 3: Humanities-strong students, needing math support.
+Key Features: Hour, street, and weather conditions were the most influential predictors of traffic volume.
 
 
 
-Association Rules: Highlighted relationships between demographic/academic factors and course success, though no high-lift rules were found, suggesting weak correlations or need for threshold adjustment.
+API: Successfully delivered real-time predictions, suitable for integration into navigation systems or traffic management tools.
 
 
 
-Feedback: Cluster-based recommendations received positive feedback (scores 3.8–4.5), with suggestions for more personalized and adaptive advising.
+Insights: Traffic peaks during morning and evening rush hours, with strong correlations between traffic volume, time, and street direction.
 
 Usage
 
@@ -90,19 +150,33 @@ Clone the repository (if available) or download the report and dataset.
 
 
 
-Install required Python libraries: pip install pandas scikit-learn mlxtend matplotlib.
+Install required Python libraries: pip install pandas scikit-learn xgboost flask matplotlib.
 
 
 
-Preprocess the dataset as described in the report.
+Preprocess the dataset as described in the report (cleaning, encoding, scaling).
 
 
 
-Run K-Means and FP-Growth scripts to replicate clustering and rule mining.
+Run model training scripts to replicate XGBoost, Random Forest, or Linear Regression results.
 
 
 
-Visualize results using provided plot descriptions (e.g., elbow plot, scatter plots, heatmaps).
+Deploy the Flask API:
+
+
+
+
+
+Run the Flask server: python app.py.
+
+
+
+Access the HTML interface or send POST requests to the API endpoint with parameters (e.g., time, street, weather).
+
+
+
+Visualize results using provided plot descriptions (e.g., traffic volume histograms, feature importance).
 
 Limitations
 
@@ -110,11 +184,15 @@ Limitations
 
 
 
-Limited dataset scope (high school students from few institutions).
+Limited to NYC DOT data (2022–2024), which may not generalize to other cities.
 
 
 
-Excludes dynamic factors like student motivation or teaching quality.
+Excludes real-time factors like road incidents or construction events.
+
+
+
+Basic HTML interface lacks advanced visualization (e.g., map-based predictions).
 
 Future Work
 
@@ -122,15 +200,15 @@ Future Work
 
 
 
-Expand dataset diversity.
+Integrate additional real-time data (e.g., accidents, construction, weather updates).
 
 
 
-Incorporate additional variables (e.g., psychological factors).
+Enhance scalability by deploying on cloud platforms (e.g., AWS, Google Cloud).
 
 
 
-Implement real-time feedback loops for adaptive advising.
+Develop a more interactive frontend with map-based visualization for route suggestions.
 
 References
 
@@ -138,16 +216,16 @@ References
 
 
 
-Kaggle dataset: Student Performance in Mathematics
+NYC DOT Traffic Volume Counts: https://www.nyc.gov/dot
 
 
 
-FP-Growth: Javatpoint
+Chen, T., & Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. KDD '16.
 
 
 
-K-Means: Wikipedia
+Breiman, L. (2001). Random Forests. Machine Learning, 45(1).
 
 
 
-Academic papers cited in the report.# Machine-Learning
+Python libraries: scikit-learn, xgboost, flask.
